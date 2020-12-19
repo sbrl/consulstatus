@@ -1,0 +1,52 @@
+:root {
+	--color-bg-light: rgba(100, 100, 100, 0.25);
+}
+
+@media (prefers-color-scheme: dark) {
+	:root {
+		--color-bg-light: rgba(255, 255, 255, 0.25);
+	}
+}
+
+body {
+	display: grid;
+	
+	grid-template-columns: 10% auto 10%;
+	grid-template-rows: repeat(3, auto);
+	grid-template-areas:
+		"left header right"
+		"left content right"
+		"left footer right";
+}
+
+h1 { grid-area: header; }
+main { grid-area: content; }
+footer { grid-area: footer; }
+
+.status-list {
+	list-style-type: none;
+	margin: 0;
+	padding: 0;
+}
+
+.status-list > li {
+	padding: 1em;
+	font-size: 1.25em;
+}
+.status-list > li:nth-child(even) { background: var(--color-bg-light); }
+
+.status-list > li:after {
+	content: "";
+	float: right;
+	width: 1em;
+	height: 1em;
+	margin-top: -0.4em; /* HACK */
+	padding: 0.375em;
+	/* color: transparent; */
+	border-radius: 50%;
+	font-size: 1.25em;
+}
+.status-list > li.ok:after			{ background-color: hsl(98, 86%, 37%); }
+.status-list > li.degraded:after	{ content: "⚠️"; background-color: hsl(43, 100%, 65%); padding: 0.25em 0.375em 0.5em 0.375em;
+ }
+.status-list > li.failed:after		{ content: "❌"; background-color: hsl(5, 73%, 60%); }

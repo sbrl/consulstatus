@@ -1,0 +1,16 @@
+{
+    "name": "sbrl/consulstatus",
+    "description": "Public consul-backed status page",
+    "type": "project",
+    "require": {
+        "yosymfony/toml": "^1.0",
+        "aura/autoload": "^2.0"
+    },
+    "license": "MPL-2.0",
+    "authors": [
+        {
+            "name": "Starbeamrainbowlabs",
+            "email": "sbrl@starbeamrainbowlabs.com"
+        }
+    ]
+}
