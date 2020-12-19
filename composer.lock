@@ -4,57 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "20cccce88ece965f3ab9158d645c767b",
+    "content-hash": "e7ea92325b0697dc718b9e98b2b828ab",
     "packages": [
-        {
-            "name": "aura/autoload",
-            "version": "2.0.4",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/auraphp/Aura.Autoload.git",
-                "reference": "306a7f8d3cb58fb6f94bcff1dddf20c543f68668"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/auraphp/Aura.Autoload/zipball/306a7f8d3cb58fb6f94bcff1dddf20c543f68668",
-                "reference": "306a7f8d3cb58fb6f94bcff1dddf20c543f68668",
-                "shasum": ""
-            },
-            "require": {
-                "php": ">=5.3.0"
-            },
-            "type": "library",
-            "extra": {
-                "aura": {
-                    "type": "library"
-                }
-            },
-            "autoload": {
-                "psr-4": {
-                    "Aura\\Autoload\\": "src/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "BSD-2-Clause"
-            ],
-            "authors": [
-                {
-                    "name": "Aura.Autoload Contributors",
-                    "homepage": "https://github.com/auraphp/Aura.Autoload/contributors"
-                }
-            ],
-            "description": "Provides a PSR-4 compliant autoloader implementation.",
-            "homepage": "https://github.com/auraphp/Aura.Autoload",
-            "keywords": [
-                "PSR-4",
-                "SPL autoloader",
-                "autoload",
-                "autoloader",
-                "class loader"
-            ],
-            "time": "2016-10-03T19:36:19+00:00"
-        },
         {
             "name": "yosymfony/parser-utils",
             "version": "v2.0.0",
