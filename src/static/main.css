@@ -19,7 +19,10 @@ body {
 		"left footer right";
 }
 
-h1 { grid-area: header; }
+h1 {
+	grid-area: header;
+	text-align: center;
+}
 main { grid-area: content; }
 footer { grid-area: footer; }
 
