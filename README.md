@@ -4,7 +4,7 @@
 
 A simple status page for your Consul services. Displays whether they are up or not with a simple status page. You can choose which services are displayed by specifying their names.
 
-DISCLAIMER: This project is not associated with Hashicorp or the Consul project in any way. It just uses the API of your consul instance. Hashicorp do not endorse (or even know about, probably) this project. Hashicorp and Consul are trademarks of Hashicorp®.
+**DISCLAIMER:** This project is not associated with Hashicorp or the Consul project in any way. It just uses the API of your consul instance. Hashicorp do not endorse (or even know about, probably) this project. Hashicorp and Consul are trademarks of Hashicorp®.
 
 ## System Requirements
  - Consul instance (authentication isn't yet supported)
