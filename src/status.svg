@@ -13,7 +13,7 @@
 		.blue	{ stroke: blue; stroke-width: 6px;		}
 		.yellow	{ stroke: hsl(48, 91%, 56%);	}
 	</style>
-	<rect x="5" y="5" width="90" height="90" stroke="hsl(324, 58%, 34%)" />
+	<!-- <rect x="5" y="5" width="90" height="90" stroke="hsl(324, 58%, 34%)" /> -->
 	
 	<circle cx="23" cy="20" r="12" class="green" />
 	<path class="red" d="M 23 50 m -12 -12 l 24 24 m -24 0 l 24 -24" />
