@@ -43,15 +43,31 @@ class ConsulStatusFetcher
 		
 		$response_obj = json_decode(file_get_contents($url));
 		
-		$result = (object) [ "ok" => 0, "failed" => 0 ];
+		$result = (object) [
+			"ok" => 0, "failed" => 0,
+			"node_ok" => 0, "node_failed" => 0
+		];
 		foreach($response_obj as $instance) {
 			foreach($instance->Checks as $check) {
+				if($check->CheckID === "serfHealth") {
+					if($check->Status !== "passing")
+						$result->node_failed++;
+					else
+						$result->node_ok++;
+					continue;
+				}
+				
 				if($check->Status !== "passing")
 					$result->failed++;
 				else
 					$result->ok++;
 			}
 		}
+		
+		// If the service hasn't failed but the node has, then add the node check failure to the service check failure count
+		if($result->failed == 0 && $result->node_failed > 0)
+			$result->failed += $result->node_failed;
+		
 		return $result;
 	}
 }
