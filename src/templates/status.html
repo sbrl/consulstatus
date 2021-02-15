@@ -12,11 +12,11 @@
 		<h1><img aria-hidden="true" alt="consulstatus icon" class="icon" src="status.svg" /> {{title}}</h1>
 		
 		<main>
-			{#each status_groups}
+			{#each .status_groups}
 			<section>
 				<h2>{{name}}</h2>
 				<ul class="status-list">
-					{#each statuses}
+					{#each .statuses}
 					<li class="{{status}}" data-ok="{{count_ok}}" data-failed="{{count_failed}}">
 						<div class="status-name">{{name}}</div>
 						<div class="status-description">{{description}}</div>

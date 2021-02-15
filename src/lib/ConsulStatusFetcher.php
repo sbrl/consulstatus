@@ -23,7 +23,8 @@ class ConsulStatusFetcher
 	public function fetch(array $service_names) {
 		$result = [];
 		foreach($service_names as $service_name) {
-			$result[] = $this->fetch_single($service_name);
+			$item = $this->fetch_single($service_name);
+			$result[] = $item;
 		}
 		return $result;
 	}
@@ -32,8 +33,13 @@ class ConsulStatusFetcher
 		$service_name = is_string($service) ? $service : $service->name;
 		
 		$status = $this->query_service_status($service_name);
+		
 		$status_class = "ok";
-		if($status->failed > 0)
+		if($status === null) {
+			$status_class = "unknown";
+			$status = (object) [ "ok" => 0, "failed" => 0 ];
+		}
+		elseif($status->failed > 0)
 			$status_class = $status->ok > 0 ? "degraded" : "failed";
 		
 		return (object) [
@@ -50,6 +56,7 @@ class ConsulStatusFetcher
 		$url = "$this->base_url/v1/health/service/".rawurlencode($service_name);
 		
 		$response_obj = json_decode(file_get_contents($url));
+		if($response_obj == null) return null;
 		
 		$result = (object) [
 			"ok" => 0, "failed" => 0,

@@ -60,7 +60,6 @@ class NightInk
 	 * @return	string	The rendered output.
 	 */
 	public function render_file($filename, $options) {
-		echo(json_encode($options, JSON_PRETTY_PRINT));
 		return $this->render(
 			file_get_contents($filename),
 			$options

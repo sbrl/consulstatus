@@ -38,7 +38,7 @@ footer { grid-area: footer; }
 }
 .status-list > li:nth-child(even) { background: var(--color-bg-light); }
 
-.status-list > li:after {
+.status-list > li:before {
 	content: "";
 	float: right;
 	width: 1em;
@@ -49,9 +49,10 @@ footer { grid-area: footer; }
 	border-radius: 50%;
 	font-size: 1.25em;
 }
-.status-list > li.ok:after			{ background-color: hsl(98, 86%, 37%); }
-.status-list > li.degraded:after	{ content: "⚠️"; background-color: hsl(43, 100%, 65%); padding: 0.25em 0.375em 0.5em 0.375em;
+.status-list > li.ok:before			{ background-color: hsl(98, 86%, 37%); }
+.status-list > li.unknown:before		{ content: "❓"; background-color: hsl(0, 0%, 57%); }
+.status-list > li.degraded:before	{ content: "⚠️"; background-color: hsl(43, 100%, 65%); padding: 0.25em 0.375em 0.5em 0.375em;
  }
-.status-list > li.failed:after		{ content: "❌"; background-color: hsl(5, 73%, 60%); }
+.status-list > li.failed:before		{ content: "❌"; background-color: hsl(5, 73%, 60%); }
 
 .icon	{ vertical-align: middle; max-width: 1.25em; max-height: 1.25em;	}
