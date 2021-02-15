@@ -52,9 +52,7 @@ switch($action) {
 			foreach($settings->get("service_group") as $service_group) {
 				$status_groups[] = (object) [
 					"name" => $service_group->name,
-					"statuses" => $status_fetcher->fetch(
-						$service_group->services
-					)
+					"statuses" => $status_fetcher->fetch($service_group->services)
 				];
 			}
 		}

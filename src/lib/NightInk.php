@@ -5,11 +5,13 @@ namespace SBRL;
 /**
  * A teeny-tiny templating engine.
  * @author			Starbeamrainbowlabs
- * @version			v0.4
- * @lastModified	19th December 2020
+ * @version			v0.5
+ * @lastModified	15th February 2021
  * @license			https://www.mozilla.org/en-US/MPL/2.0/	Mozilla Public License 2.0
  * Changelog:
- 	 * v0.4:
+ 	 * v0.5 (15th February 2021):
+ 	 	 * Fix nested {#each} statements
+ 	 * v0.4 (19th December 2020):
  	 	 * 0 does not equal null
 	 * v0.3:
 	 	 * Support a single dot (".") to mean the current item
@@ -58,6 +60,7 @@ class NightInk
 	 * @return	string	The rendered output.
 	 */
 	public function render_file($filename, $options) {
+		echo(json_encode($options, JSON_PRETTY_PRINT));
 		return $this->render(
 			file_get_contents($filename),
 			$options
@@ -71,6 +74,7 @@ class NightInk
 	 * @return	string	The rendered output.
 	 */
 	public function render($template, $options) {
+		// echo("[NightInk/DEBUG]"); var_dump($template);
 		return preg_replace_callback(
 			"/\{\{?([^{}]*)\}\}?/iu",
 			function($matches) use($options) {
@@ -90,7 +94,7 @@ class NightInk
 				return $sub_data;
 			},
 			preg_replace_callback(
-				"/\{#each\s+([^{}]+)\}(.*?)\{#endeach\}/imus",
+				"/\{#each\s+([^{}]+)\}(.*)\{#endeach\}/imus",
 				function($matches) use($options) {
 					// {#each key} parsing
 					// 0: full thing
