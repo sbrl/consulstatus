@@ -5,9 +5,21 @@ title = "Status page"
 # The base url for the consul instance.
 base_url = "http://example.com/"
 
-# The names of the services for which the status should be displayed.
-services = [
-	"foo",
-	"bar",
-	"baz"
-]
+# Services are arranged in 1 or more groups
+
+# [[service_group]]
+# name = "Some Group"
+# 
+# services = [
+# 	{ name = "foo", description = "Some description" },
+# 	"bar",
+# 	"baz"
+# ]
+# 
+# [[service_group]]
+# name = "Another group"
+# 
+# services = [
+# 	{ name = "another_service", description = "Another description" },
+# 	"yet_another_service"
+# ]

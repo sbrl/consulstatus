@@ -23,19 +23,27 @@ class ConsulStatusFetcher
 	public function fetch(array $service_names) {
 		$result = [];
 		foreach($service_names as $service_name) {
-			$status = $this->query_service_status($service_name);
-			$status_class = "ok";
-			if($status->failed > 0)
-				$status_class = $status->ok > 0 ? "degraded" : "failed";
-			
-			$result[] = (object) [
-				"name" => $service_name,
-				"status" => $status_class,
-				"count_ok" => $status->ok,
-				"count_failed" => $status->failed
-			];
+			$result[] = $this->fetch_single($service_name);
 		}
 		return $result;
+	}
+	
+	public function fetch_single($service) {
+		$service_name = is_string($service) ? $service : $service->name;
+		
+		$status = $this->query_service_status($service_name);
+		$status_class = "ok";
+		if($status->failed > 0)
+			$status_class = $status->ok > 0 ? "degraded" : "failed";
+		
+		return (object) [
+			"name" => $service_name,
+			"description" => is_object($service) && is_string($service->description)
+				? $service->description : "",
+			"status" => $status_class,
+			"count_ok" => $status->ok,
+			"count_failed" => $status->failed
+		];
 	}
 	
 	protected function query_service_status($service_name) {

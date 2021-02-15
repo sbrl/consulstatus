@@ -10,10 +10,12 @@ use \Yosymfony\Toml\TomlBuilder;
  * Handles the loading and saving of settings from a toml file.
  * Supports loading default settings from a separate file.
  * @author			Starbeamrainbowlabs
- * @version			v0.5.2
- * @lastModified	15th January 2018
+ * @version			v0.6
+ * @lastModified	15th February 2021
  * @license			https://www.mozilla.org/en-US/MPL/2.0/	Mozilla Public License 2.0
  * Changelog:
+ 	 * v0.6 - 15th February 2021
+ 	 	 * Add new .has($key) method
 	 * v0.5.2 - 15th January 2018
 		 * chmod auto-generated settings file to be 0600
 	 * v0.5.1 - 14th January 2018
@@ -65,6 +67,17 @@ class TomlConfig
 			file_put_contents($settingsFilePath, "$this->customSettingsBanner\n");
 			chmod($settingsFilePath, 0600);
 		}
+	}
+	
+	/**
+	 * Returns whether a property exists with the given key.
+	 * Checks both the default and custom settings.
+	 * @param  string  $key The key to check. 
+	 * @return boolean      Whether the given key exists in either the default to custom settings files.
+	 */
+	public function has($key) {
+		return static::hasPropertyByPath($this->customSettings, $key)
+			|| static::hasPropertyByPath($this->defaultSettings, $key);
 	}
 	/**
 	 * Gets the value identified by the specified property, in dotted notation (e.g. `Network.Firewalling.Ports.Http`)

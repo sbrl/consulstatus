@@ -38,7 +38,27 @@ switch($action) {
 	 */
 	case "index":
 		$status_fetcher = new ConsulStatusFetcher($settings->get("consul.base_url"));
-		$statuses = $status_fetcher->fetch($settings->get("consul.services"));
+		$status_groups = [];
+		// Legacy support
+		if($settings->has("consul.services")) {
+			$status_groups[] = (object) [
+				"name" => "default",
+				"statuses" => $status_fetcher->fetch(
+					$settings->get("consul.services")
+				)
+			];
+		}
+		if($settings->has("service_group")) {
+			foreach($settings->get("service_group") as $service_group) {
+				$status_groups[] = (object) [
+					"name" => $service_group->name,
+					"statuses" => $status_fetcher->fetch(
+						$service_group->services
+					)
+				];
+			}
+		}
+		
 		$format = $_GET["format"] ?? "html";
 		
 		switch ($format) {
@@ -51,7 +71,8 @@ switch($action) {
 			default:
 				echo($renderer->render_file("./templates/status.html", [
 					"title" => $settings->get("title"),
-					"statuses" => $statuses,
+					"status_groups" => $status_groups,
+					// "statuses" => $statuses,
 					"datetime" => date("c")
 				]));
 				break;
