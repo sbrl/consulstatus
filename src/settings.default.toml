@@ -2,24 +2,28 @@ title = "Status page"
 
 [consul]
 
-# The base url for the consul instance.
+# The base url for the consul instance to talk to.
 base_url = "http://example.com/"
 
 # Services are arranged in 1 or more groups
 
 # [[service_group]]
-# name = "Some Group"
+# name = "A Group"
 # 
-# services = [
-# 	{ name = "foo", description = "Some description" },
-# 	"bar",
-# 	"baz"
-# ]
+# 	[[service_group.services]]
+# 	name = "dashboard"
+# 	description = "some description text. The description field is optional."
+# 
+# 	[[service_group.services]]
+# 	name = "another_service"
 # 
 # [[service_group]]
-# name = "Another group"
+# name = "Another Group"
 # 
-# services = [
-# 	{ name = "another_service", description = "Another description" },
-# 	"yet_another_service"
-# ]
+# 	[[service_group.services]]
+# 	name = "apple"
+# 	description = "The apple service"
+# 
+# 	[[service_group.services]]
+# 	name = "orange"
+# 	description = "The orange service"
