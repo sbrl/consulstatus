@@ -46,14 +46,27 @@ title = "ExampleCloud Status Page"
 # The base URL of the Consul API
 base_url = "http://127.0.0.1:8500"
 # The list of services to show the status of
-services = [
-	"service_name_one",
-	"service_name_two",
-	"service_name_three",
-	# ....
-	"another_service",
-	"service_name_n"
-]
+
+[[service_group]]
+name = "A Group"
+
+	[[service_group.services]]
+	name = "dashboard"
+	description = "some description text. The description field is optional."
+
+	[[service_group.services]]
+	name = "another_service"
+
+[[service_group]]
+name = "Another Group"
+
+	[[service_group.services]]
+	name = "apple"
+	description = "The apple service"
+
+	[[service_group.services]]
+	name = "orange"
+	description = "The orange service"
 ```
 
 Then, you should be able to load `index.php` in your web browser and it should work!
