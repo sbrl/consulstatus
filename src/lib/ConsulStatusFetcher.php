@@ -30,6 +30,7 @@ class ConsulStatusFetcher
 	}
 	
 	public function fetch_single($service) {
+		if(is_array($service)) $service = (object) $service;
 		$service_name = is_string($service) ? $service : $service->name;
 		
 		$status = $this->query_service_status($service_name);

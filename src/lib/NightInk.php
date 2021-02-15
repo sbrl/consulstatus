@@ -73,7 +73,6 @@ class NightInk
 	 * @return	string	The rendered output.
 	 */
 	public function render($template, $options) {
-		// echo("[NightInk/DEBUG]"); var_dump($template);
 		return preg_replace_callback(
 			"/\{\{?([^{}]*)\}\}?/iu",
 			function($matches) use($options) {

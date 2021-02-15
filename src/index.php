@@ -50,9 +50,10 @@ switch($action) {
 		}
 		if($settings->has("service_group")) {
 			foreach($settings->get("service_group") as $service_group) {
+				$group = (object)$service_group;
 				$status_groups[] = (object) [
-					"name" => $service_group->name,
-					"statuses" => $status_fetcher->fetch($service_group->services)
+					"name" => $group->name,
+					"statuses" => $status_fetcher->fetch($group->services)
 				];
 			}
 		}
