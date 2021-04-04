@@ -5,6 +5,9 @@ title = "Status page"
 # The base url for the consul instance to talk to.
 base_url = "http://example.com/"
 
+# Number of seconds to wait for a response from Consul
+timeout = 5
+
 # Services are arranged in 1 or more groups
 
 # [[service_group]]

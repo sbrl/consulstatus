@@ -37,7 +37,10 @@ switch($action) {
 	 * ██ ██   ████ ██████  ███████ ██   ██
 	 */
 	case "index":
-		$status_fetcher = new ConsulStatusFetcher($settings->get("consul.base_url"));
+		$status_fetcher = new ConsulStatusFetcher(
+			$settings->get("consul.base_url"),
+			$settings->get("consul.timeout")
+		);
 		$status_groups = [];
 		// Legacy support
 		if($settings->has("consul.services")) {

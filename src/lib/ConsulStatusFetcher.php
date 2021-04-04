@@ -9,10 +9,16 @@ class ConsulStatusFetcher
 	 * The base URL to which queries are made.
 	 * @var string
 	 */
-	private $base_url;
+	private string $base_url;
+	/**
+	 * The time to wait - in seconds - for a response from Consul.
+	 * @var int
+	 */
+	private int $timeout;
 	
-	function __construct(string $base_url) {
+	function __construct(string $base_url, int $timeout = 5) {
 		$this->base_url = $base_url;
+		$this->timeout = $timeout;
 	}
 	
 	/**
@@ -20,7 +26,7 @@ class ConsulStatusFetcher
  	 * @param	string[]	$service_names	An array of strings of the service names to check
 	 * @return	stdClass[]	An array of status objects.
 	 */
-	public function fetch(array $service_names) {
+	public function fetch(array $service_names) : array {
 		$result = [];
 		foreach($service_names as $service_name) {
 			$item = $this->fetch_single($service_name);
@@ -55,6 +61,10 @@ class ConsulStatusFetcher
 	
 	protected function query_service_status($service_name) {
 		$url = "$this->base_url/v1/health/service/".rawurlencode($service_name);
+		
+		$ctx = stream_context_create([ 'http' => [
+			'timeout' => $this->timeout, // in seconds
+		]]);
 		
 		$response_obj = json_decode(file_get_contents($url));
 		if($response_obj == null) return null;
