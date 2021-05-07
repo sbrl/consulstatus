@@ -69,6 +69,10 @@ snore() {
     read -rt "$1" <> <(:) || :
 }
 
+log_msg() {
+	echo "[$(date --rfc-3339=seconds)] consulalerter[$$]: $*" >&2;
+}
+
 ###############################################################################
 
 # $1	The service name
@@ -98,6 +102,7 @@ while true; do
 		response="$(curl -sS "${consul_endpoint}/v1/health/service/${service_name}")";
 		checks_total="$(echo "${response}" | jq '.[].Checks[] | .Status' | wc -l)";
 		failed_checks_count="$(echo "${response}" | jq '.[].Checks[] | select(.Status != "passing") | .Status' | wc -l)";
+		log_msg "Checked service $service_name: total ${checks_total} checks, ${failed_checks_count} failed";
 		
 		filepath_failed="${storage_dir}/failed_checks/${service_name_a}";
 		
