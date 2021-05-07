@@ -14,9 +14,6 @@ mqtt_topic="consul/checks/status_changes";
 mqtt_user="";
 mqtt_password="";
 
-# Set this in ${storage_dir}/config.sh
-# services = ( "service_name_a", "service_name_b", "service_name_c" )
-
 ###############################################################################
 
 # $1 - Command name to check for
@@ -47,13 +44,6 @@ fi
 if [[ -r "${storage_dir}/config.sh" ]]; then
 	# shellcheck disable=SC1090
 	source "${storage_dir}/config.sh";
-fi
-
-if ! declare -p variable-name 2> /dev/null; then
-	echo "Error: The services array is not defined." >&2;
-	echo "It should be defined in '${storage_dir}/config.sh' like this:" >&2;
-	echo 'services = ( "service_name_a", "service_name_b", "service_name_c" )' >&2;
-	exit 2;
 fi
 
 ###############################################################################
@@ -98,7 +88,7 @@ while true; do
 	
 	# This is defined in the config file
 	# shellcheck disable=SC2154
-	for service_name in "${services[@]}"; do
+	while read -r service_name; do
 		response="$(curl -sS "${consul_endpoint}/v1/health/service/${service_name}")";
 		checks_total="$(echo "${response}" | jq '.[].Checks[] | .Status' | wc -l)";
 		failed_checks_count="$(echo "${response}" | jq '.[].Checks[] | select(.Status != "passing") | .Status' | wc -l)";
@@ -117,7 +107,7 @@ while true; do
 		fi
 		
 		echo "${failed_checks_count}" >"${filepath_failed}";
-	done
+	done < <(curl -sS "${consul_endpoint}/v1/agent/services" | jq --raw-output 'keys | .[]');
 	
 	snore "${interval}";
 done
