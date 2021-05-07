@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 # The storage directory to persist state in
-storage_dir="/srv/consul-alerter";
+storage_dir="${storage_dir:-/srv/consul-alerter}";
 # The Consul endpoint to query
 consul_endpoint="http://[::1]:8500";
 # The interval in second to check
