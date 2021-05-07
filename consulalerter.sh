@@ -106,9 +106,10 @@ while true; do
 		
 		if [[ "${failed_checks_count}" -ne "${failed_checks_count_prev}" ]]; then
 			alert "${service_name}" "${failed_checks_count}" "${checks_total}";
+			# Write the new number of failed checks to disk
+			echo "${failed_checks_count}" >"${filepath_failed}";
 		fi
 		
-		echo "${failed_checks_count}" >"${filepath_failed}";
 	done < <(curl -sS "${consul_endpoint}/v1/agent/services" | jq --raw-output 'keys | .[]');
 	
 	snore "${interval}";
