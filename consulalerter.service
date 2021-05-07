@@ -1,0 +1,21 @@
+[Unit]
+Description=consulalerter
+After=syslog.target rsyslog.service network.target
+Requires=consul.service
+
+[Service]
+Type=simple
+User=consulalerter
+Group=consulalerter
+WorkingDirectory=/srv/consulalerter
+ExecStart=/srv/consulstatus/consulalerter.sh
+Restart=always
+Environment=QUIET=yes
+
+StandardOutput=syslog
+StandardError=syslog
+SyslogIdentifier=consulalerter
+
+
+[Install]
+WantedBy=multi-user.target
