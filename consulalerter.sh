@@ -73,7 +73,6 @@ alert() {
 	checks_failed="${2}";
 	checks_total="${3}";
 	
-	echo "[alert] Not implemented yet" >&2;
 	if [[ "${mqtt_enabled}" == "true" ]]; then
 		message="$(jq --null-input --arg service_name "${service_name}" --arg failed "${checks_failed}" --arg total "${checks_total}" '{ service_name: $service_name, checks: { total: $total, failed: $failed } }')";
 		
