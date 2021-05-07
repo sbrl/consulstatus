@@ -1,0 +1,8 @@
+/var/log/consulalerter/consulalerter.log {
+	rotate 7
+	daily
+	missingok
+	notifempty
+	compress
+	delaycompress
+}
