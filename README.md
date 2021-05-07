@@ -74,6 +74,8 @@ Then, you should be able to load `index.php` in your web browser and it should w
 ## consulalerter
 `consulalerter.sh` is a small Bash script whose purpose is writing service check status updates to an MQTT server - more methods may be added in the future.
 
+**Warning:** The directory used for persisting state gets a number of writes (though attempts have been made to optimise this), so try to avoid it being on an SSD / flash memory.
+
 It writes to the mqtt topic `consul/checks/status_changes` by default whenever the number of failed checks for a services changes in the following format:
 
 ```json
@@ -152,6 +154,7 @@ Finally, start `consulalerter.service` and enable it on boot:
 ```bash
 sudo systemctl enable --now consulalerter.service
 ```
+
 
 ## Contributing
 Contributions are very welcome - both issues and pull requests! Please mention in your pull request that you release your work under the MPL-2.0 (see below).
