@@ -71,6 +71,87 @@ name = "Another Group"
 
 Then, you should be able to load `index.php` in your web browser and it should work!
 
+## consulalerter
+`consulalerter.sh` is a small Bash script whose purpose is writing service check status updates to an MQTT server - more methods may be added in the future.
+
+It writes to the mqtt topic `consul/checks/status_changes` by default whenever the number of failed checks for a services changes in the following format:
+
+```json
+{
+    "service_name": "SERVICE_NAME_HERE",
+    "checks": {
+        "total": "2",
+        "failed": "0"
+    }
+}
+```
+
+ - `service_name`: The name of the service whose status has changed
+ - `checks.total`: The total number of checks the service has
+ - `checks.failed`: The number of aforementioned checks that failed
+
+### Setup
+Copy the logrotate & rsyslog config files into place:
+
+```bash
+cd path/to/consulstatus_repo_root;
+sudo cp consulalerter-logrotate /etc/logrotate.d/consulalerter
+sudo cp consulalerter-rsyslog.conf /etc/rsyslog.d/consulalerter.conf
+```
+
+Copy the systemd service file into place:
+
+```bash
+sudo cp consulalerter.service /etc/systemd/system
+```
+
+Make sure to edit the service file to match your filepaths:
+
+```bash
+sudo nano /etc/systemd/system/consulalerter.service
+```
+
+Create the `consulalerter` user:
+
+```bash
+sudo useradd --no-create-home --system --home /srv/consulalerter consulalerter
+```
+
+Create the data directory:
+
+```bash
+sudo mkdir -p /srv/consulalerter;
+sudo chown consulalerter:consulalerter /srv/consulalerter;
+```
+
+Now, write a config file:
+
+```bash
+#!/usr/bin/env bash
+
+interval="60";
+
+mqtt_enabled="true";
+mqtt_user="consulalerter";
+mqtt_password="CHANGE_ME";
+```
+
+Note that consulalerter _requires_ a username & password to login to the MQTT server, and won't function without one.
+
+Save it to the right place:
+
+```bash
+# Write the config file....
+sudo nano /srv/consulalerter/config.sh
+# ....and set the correct permissions on it
+sudo chmod +x /srv/consulalerter/config.sh
+```
+
+Finally, start `consulalerter.service` and enable it on boot:
+
+```bash
+sudo systemctl enable --now consulalerter.service
+```
 
 ## Contributing
 Contributions are very welcome - both issues and pull requests! Please mention in your pull request that you release your work under the MPL-2.0 (see below).
