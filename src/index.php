@@ -75,7 +75,8 @@ switch($action) {
 					"title" => $settings->get("title"),
 					"status_groups" => $status_groups,
 					// "statuses" => $statuses,
-					"datetime" => date("c")
+					"datetime" => date("c"),
+					"bg_url" => $settings->get("background_image") ?: ""
 				]));
 				break;
 		}

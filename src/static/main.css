@@ -1,10 +1,16 @@
 :root {
+	--bg-main: #f3f3f3;
+	--bg-main-trans: hsla(0, 0%, 95%, 0.5);
+	
 	--color-bg-light: rgba(100, 100, 100, 0.25);
 	--color-bg-panel: rgba(200, 200, 200, 0.25);
 }
 
 @media (prefers-color-scheme: dark) {
 	:root {
+		--bg-main: #232323;
+		--bg-main-trans: hsla(0, 0%, 13%, 0.5);
+		
 		--color-bg-light: rgba(255, 255, 255, 0.25);
 		--color-bg-panel: rgba(100, 100, 100, 0.25);
 	}
@@ -12,6 +18,10 @@
 
 body {
 	display: grid;
+	
+	background: linear-gradient(to right, var(--bg-main-trans), var(--bg-main-trans)),
+		var(--bg-url) center / cover;
+	background-color: var(--bg-main);
 	
 	grid-template-columns: 10% auto 10%;
 	grid-template-rows: repeat(3, auto);
