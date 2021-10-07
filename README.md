@@ -71,6 +71,17 @@ name = "Another Group"
 
 Then, you should be able to load `index.php` in your web browser and it should work!
 
+Optionally, add a background section to seet a background image:
+
+```toml
+[background]
+image="URL_OF_IMAGE"
+
+mode="cover" # Default, causes the background to be enlarged to cover the entire page
+# OR, for a fixed background that doesn't move:
+mode="fixed"
+```
+
 ## consulalerter
 `consulalerter.sh` is a small Bash script whose purpose is writing service check status updates to an MQTT server - more methods may be added in the future.
 

@@ -76,7 +76,8 @@ switch($action) {
 					"status_groups" => $status_groups,
 					// "statuses" => $statuses,
 					"datetime" => date("c"),
-					"bg_url" => $settings->get("background_image") ?: ""
+					"bg_url" => $settings->get("background.image") ?: "",
+					"body_classes" => $settings->get("background.mode") === "fixed" ? "bg-fixed" : "bg-cover"
 				]));
 				break;
 		}

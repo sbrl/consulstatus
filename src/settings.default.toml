@@ -1,6 +1,11 @@
 title = "Status page"
+
+
+[background]
 # Set to a string to specify the URL of an image 
-background_image = false
+image = false
+
+mode = "cover"
 
 [consul]
 
